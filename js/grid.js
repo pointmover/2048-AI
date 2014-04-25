@@ -121,7 +121,7 @@ Grid.prototype.addStartTiles = function () {
 Grid.prototype.addRandomTile = function () {
   if (this.cellsAvailable()) {
     var value = Math.random() < 0.9 ? 2 : 4;
-    //var value = Math.random() < 0.9 ? 256 : 512;
+    // var value = Math.random() < 0.9 ? 256 : 512;
     var tile = new Tile(this.randomAvailableCell(), value);
 
     this.insertTile(tile);
@@ -326,7 +326,7 @@ Grid.prototype.toString = function() {
   return string;
 }
 
-// counts the number of isolated groups. 
+// counts the number of isolated groups.
 Grid.prototype.islands = function() {
   var self = this;
   var mark = function(x, y, value) {
@@ -335,7 +335,7 @@ Grid.prototype.islands = function() {
         self.cells[x][y].value == value &&
         !self.cells[x][y].marked ) {
       self.cells[x][y].marked = true;
-      
+
       for (direction in [0,1,2,3]) {
         var vector = self.getVector(direction);
         mark(x + vector.x, y + vector.y, value);
@@ -361,7 +361,7 @@ Grid.prototype.islands = function() {
       }
     }
   }
-  
+
   return islands;
 }
 
@@ -369,7 +369,7 @@ Grid.prototype.islands = function() {
 // measures how smooth the grid is (as if the values of the pieces
 // were interpreted as elevations). Sums of the pairwise difference
 // between neighboring tiles (in log space, so it represents the
-// number of merges that need to happen before they can merge). 
+// number of merges that need to happen before they can merge).
 // Note that the pieces can be distant
 Grid.prototype.smoothness = function() {
   var smoothness = 0;
@@ -438,7 +438,7 @@ Grid.prototype.monotonicity = function() {
             //console.log(cell, value, target, targetValue);
             increases += targetValue - value;
           }
-        } 
+        }
         if (!queued[target.x][target.y]) {
           cellQueue.push(target);
           queued[target.x][target.y] = true;

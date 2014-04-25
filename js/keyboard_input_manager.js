@@ -31,7 +31,8 @@ KeyboardInputManager.prototype.listen = function () {
     75: 0, // vim keybindings
     76: 1,
     74: 2,
-    72: 3
+    72: 3,
+    88: -1, // `x` undo
   };
 
   document.addEventListener("keydown", function (event) {
@@ -40,7 +41,10 @@ KeyboardInputManager.prototype.listen = function () {
     var mapped    = map[event.which];
 
     if (!modifiers) {
-      if (mapped !== undefined) {
+      if (mapped === -1) {
+        event.preventDefault();
+        self.emit("undo");
+      } else if (mapped !== undefined) {
         event.preventDefault();
         var feedbackContainer  = document.getElementById('feedback-container');
         feedbackContainer.innerHTML = ' ';
@@ -78,7 +82,7 @@ KeyboardInputManager.prototype.listen = function () {
     drag_block_horizontal: true,
     drag_block_vertical: true
   });
-  
+
   handler.on("swipe", function (event) {
     event.gesture.preventDefault();
     mapped = gestures.indexOf(event.gesture.direction);
